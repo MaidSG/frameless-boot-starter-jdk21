@@ -26,4 +26,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Import({BeanAutoConfiguration.class})
 public @interface EnableRestfulApi {
+
+    /**
+     * 处理实体类class
+     * @return 处理实体类class
+     */
+    Class entity() default Object.class;
 }
