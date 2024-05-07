@@ -70,7 +70,11 @@ public class ResultAdvice  implements ResponseBodyAdvice<Object> {
             LinkedHashMap<String,Object> map = (LinkedHashMap<String, Object>) body;
             if (map.containsKey("status") && map.get("status") != null && !map.get("status").equals(200)) {
                 return body;
-            }else if (map.containsKey("code") && map.get("code") != null && map.get("code").equals("200")) {
+            }else if (map.containsKey("code") && map.get("code") != null &&
+                    (   map.get("code").equals("200")
+                            ||  map.get("code").equals("405")
+                            || map.get("code").equals("500")
+                    )) {
                 return body;
             }
         }
