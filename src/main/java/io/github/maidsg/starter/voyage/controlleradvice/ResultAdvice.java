@@ -72,6 +72,7 @@ public class ResultAdvice  implements ResponseBodyAdvice<Object> {
                 return body;
             }else if (map.containsKey("code") && map.get("code") != null &&
                     (   map.get("code").equals("200")
+                            || map.get("code").equals("404")
                             ||  map.get("code").equals("405")
                             || map.get("code").equals("500")
                     )) {
