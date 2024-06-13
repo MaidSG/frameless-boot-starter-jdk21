@@ -19,9 +19,12 @@
         <sprng-boot.version>3.2.4</sprng-boot.version>
         <hutool.version>6.0.0-M4</hutool.version>
         <fastjson.version>2.0.48</fastjson.version>
+        <fastjson2.version>2.0.21</fastjson2.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <redisson.version>3.28.0</redisson.version>
         <guava.version>33.1.0-jre</guava.version>
+<!--        <springdoc-openapi-ui.version>1.7.0</springdoc-openapi-ui.version>-->
+<!--        <knife4j-springdoc-ui.version>3.0.3</knife4j-springdoc-ui.version>-->
     </properties>
 
     <licenses>
@@ -136,6 +139,41 @@
             <version>${fastjson.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2-extension</artifactId>
+            <version>${fastjson2.version}</version>
+        </dependency>
+
+<!--        &lt;!&ndash;OPEN AI 接口文档&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
+<!--            <version>${springdoc-openapi-ui.version}</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.github.xiaoymin</groupId>-->
+<!--            <artifactId>knife4j-springdoc-ui</artifactId>-->
+<!--            <version>${knife4j-springdoc-ui.version}</version>-->
+<!--        </dependency>-->
+
+
+
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+
         <!--   由于我用的maven版本是3.9.4 供本地开发使用，非必须依赖     -->
 <!--        <dependency>-->
 <!--            <groupId>org.apache.maven.plugins</groupId>-->
@@ -147,6 +185,15 @@
 
     <dependencyManagement>
         <dependencies>
+
+
+            <!--
+                starter最主要的功能就是使用springboot自动装配的特性简化框架的复杂度，但是想增添功能的话
+                除了 自动装配依赖 外可能还需要其他依赖，这时候就需要在starter中引入依赖，但是starter
+                本身不会引入依赖，所以需要在starter的pom.xml中引入依赖，但是这个依赖不会被使用者的项目
+                引入，所以需要在starter的pom.xml中使用dependencyManagement标签引入依赖，这样使用者
+                的项目就可以直接使用starter的依赖了
+            -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -172,6 +219,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <!--         不重要的设置           -->
                     <mainClass>io.github.maidsg.starter.voyage.StarterApplication</mainClass>
                     <skip>true</skip>
                 </configuration>

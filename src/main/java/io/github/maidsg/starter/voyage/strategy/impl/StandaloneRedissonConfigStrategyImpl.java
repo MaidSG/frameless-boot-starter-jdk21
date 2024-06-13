@@ -26,7 +26,7 @@ public class StandaloneRedissonConfigStrategyImpl implements RedissonConfigStrat
 
         Config config = new Config();
         try {
-            String address = redissonProperties.getAddress();
+            String address = redissonProperties.getAddress() + ":" + redissonProperties.getPort();
             String password = redissonProperties.getPassword();
             int database = redissonProperties.getDatabase();
             String redisAddr = RedisConstant.REDIS_CONNECTION_PREFIX + address;

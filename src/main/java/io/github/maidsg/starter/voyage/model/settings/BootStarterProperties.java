@@ -7,6 +7,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*******************************************************************
  * <pre></pre>
  * @文件名称： BootStarterProperties.java
@@ -73,6 +76,7 @@ public class BootStarterProperties {
     public static class RedissonProperties{
 
         private String address;
+        private String port;
         private RedissonConnectionTypeEnum type = RedissonConnectionTypeEnum.SINGLE;
         private String password;
         private int database;
@@ -87,6 +91,102 @@ public class BootStarterProperties {
         private Boolean enableMessage = Boolean.FALSE;
         // hours
         private Integer cacheExpireTime = 1;
+    }
+
+
+    @Configuration
+    @ConfigurationProperties(prefix = "frameless.openapi")
+    @Data
+    public static class OpenApiProperties {
+        /**
+         * 是否开启swagger
+         */
+        private Boolean enabled = true;
+
+        /**
+         * 分组名称
+         */
+        private String groupName;
+
+        /**
+         * 文档版本，默认使用 2.0
+         */
+        private String documentationType = "v2.0";
+
+        /**
+         * swagger会解析的包路径
+         **/
+        private String basePackage = "";
+
+        /**
+         * swagger会解析的url规则
+         **/
+        private List<String> basePath = new ArrayList<>();
+
+        /**
+         * 在basePath基础上需要排除的url规则
+         **/
+        private List<String> excludePath = new ArrayList<>();
+
+        /**
+         * 标题
+         **/
+        private String title = "RESTFul";
+
+        /**
+         * 描述
+         **/
+        private String description = "SpringBoot Web Easy RESTFul API";
+
+        /**
+         * 版本
+         **/
+        private String version = "1.0.0";
+
+        /**
+         * 许可证
+         **/
+        private String license = "";
+
+        /**
+         * 许可证URL
+         **/
+        private String licenseUrl = "";
+
+        /**
+         * 服务条款URL
+         **/
+        private String termsOfServiceUrl = "";
+
+        /**
+         * host信息
+         **/
+        private String host = "https://127.0.0.1/";
+
+        /**
+         * 联系人信息
+         */
+        private Contact contact = new Contact();
+    }
+
+    @Data
+    public static class Contact {
+
+        /**
+         * 联系人
+         **/
+        private String name = "developer";
+
+        /**
+         * 联系人url
+         **/
+        private String url = "https://github.com";
+
+        /**
+         * 联系人email
+         **/
+        private String email = "ifinetoo@qq.com";
+
     }
 
 

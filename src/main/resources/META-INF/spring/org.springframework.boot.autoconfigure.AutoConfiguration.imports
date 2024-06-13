@@ -1,2 +1,5 @@
 # Redis Configuration
 io.github.maidsg.starter.voyage.config.RedisConfiguration
+#com.github.xiaoymin.knife4j.spring.configuration.Knife4jAutoConfiguration
+io.github.maidsg.starter.voyage.component.interceptor.WebMvcHandleConfig
+io.github.maidsg.starter.voyage.config.RedisPropertiesPostProcessor

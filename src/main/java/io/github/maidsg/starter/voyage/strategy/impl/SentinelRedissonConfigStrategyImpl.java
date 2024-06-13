@@ -25,7 +25,7 @@ public class SentinelRedissonConfigStrategyImpl implements RedissonConfigStrateg
     public Config createRedissonConfig(BootStarterProperties.RedissonProperties redissonProperties) {
         Config config = new Config();
         try {
-            String address = redissonProperties.getAddress();
+            String address = redissonProperties.getAddress() + ":" + redissonProperties.getPort();
             String password = redissonProperties.getPassword();
             int database = redissonProperties.getDatabase();
             String[] addrTokens = address.split(",");

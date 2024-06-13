@@ -6,7 +6,7 @@ import io.github.maidsg.starter.voyage.component.aspect.DataDesensitizationAspec
 import io.github.maidsg.starter.voyage.component.aspect.PreventResubmitAspect;
 import io.github.maidsg.starter.voyage.component.aspect.TraceLogAspect;
 import io.github.maidsg.starter.voyage.controlleradvice.GlobalExceptionAdvice;
-import io.github.maidsg.starter.voyage.controlleradvice.ResultAdvice;
+//import io.github.maidsg.starter.voyage.controlleradvice.ResultAdvice;
 import io.github.maidsg.starter.voyage.model.settings.BootStarterProperties;
 import org.dromara.hutool.extra.spring.EnableSpringUtil;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -33,10 +33,10 @@ import org.springframework.context.annotation.DependsOn;
 @EnableSpringUtil
 public class BeanAutoConfiguration {
 
-    @Bean
-    public ResultAdvice resultHandler() {
-        return new ResultAdvice();
-    }
+//    @Bean
+//    public ResultAdvice resultHandler() {
+//        return new ResultAdvice();
+//    }
 
     @Bean
     public GlobalExceptionAdvice exceptionHandler(){return new GlobalExceptionAdvice();}
@@ -61,6 +61,11 @@ public class BeanAutoConfiguration {
     @Bean
     public BootStarterProperties.StarterRedisProperties starterRedisProperties(){
         return new BootStarterProperties.StarterRedisProperties();
+    }
+
+    @Bean
+    public BootStarterProperties.OpenApiProperties openApiProperties(){
+        return new BootStarterProperties.OpenApiProperties();
     }
 
 

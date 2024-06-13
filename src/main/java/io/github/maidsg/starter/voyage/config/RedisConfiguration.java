@@ -25,6 +25,9 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -72,7 +75,7 @@ public class RedisConfiguration {
     @ConditionalOnProperty(prefix = "frameless.redisson", value = "enabled", havingValue = "true")
     public RedissonClient redissonClient() {
         RedissonManager redissonManager = new RedissonManager(redissonProperties);
-        log.info("RedissonManager初始化完成,当前连接方式:" + redissonProperties.getType() + ",连接地址:" + redissonProperties.getAddress());
+        log.info("RedissonManager初始化完成,当前连接方式:" + redissonProperties.getType() + ",连接地址:" + redissonProperties.getAddress() +":" +  redissonProperties.getPort());
         return redissonManager.getRedisson();
     }
 
@@ -155,6 +158,23 @@ public class RedisConfiguration {
         MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(redisReceiver, "onMessage");
         messageListenerAdapter.setSerializer(new RedisFastJson2Serializer<>(Object.class));
         return messageListenerAdapter;
+    }
+
+    @Bean
+    public LettuceConnectionFactory redisConnectionFactory() {
+        // 创建自定义的LettuceClientConfiguration
+        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
+                // 这里可以设置你需要修改的配置参数
+                .build();
+
+        RedisStandaloneConfiguration serverConfig = new RedisStandaloneConfiguration(
+                redissonProperties.getAddress(), Integer.parseInt(redissonProperties.getPort())
+        );
+
+        serverConfig.setDatabase(redissonProperties.getDatabase());
+        serverConfig.setPassword(redissonProperties.getPassword());
+
+        return new LettuceConnectionFactory(serverConfig, clientConfig);
     }
 
 

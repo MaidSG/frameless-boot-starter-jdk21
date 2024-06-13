@@ -6,6 +6,7 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-@ConditionalOnClass(BootStarterProperties.RedissonProperties.class)
+@ConditionalOnProperty(prefix = "frameless.redisson", name = "enabled", havingValue = "true")
 public class RedissonLockAgent {
 
     @Autowired

@@ -1,0 +1,18 @@
+2024-06-12 22:58:06 ERROR main org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field redissonClient in io.github.maidsg.starter.voyage.component.RedissonLockAgent required a bean of type 'org.redisson.api.RedissonClient' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.redisson.api.RedissonClient' in your configuration.
+

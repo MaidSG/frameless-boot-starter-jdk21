@@ -13,6 +13,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 
@@ -31,7 +32,8 @@ import java.util.Map;
  * @Modify：
  */
 @Slf4j
-@ControllerAdvice
+// 只对标注了FramelessController注解的类进行处理
+@RestControllerAdvice(annotations = io.github.maidsg.starter.voyage.annotation.FramelessController.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class ResultAdvice  implements ResponseBodyAdvice<Object> {
 

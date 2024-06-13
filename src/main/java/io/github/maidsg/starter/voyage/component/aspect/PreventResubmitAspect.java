@@ -8,6 +8,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -29,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Aspect
 @Component
+@ConditionalOnProperty(prefix = "frameless.redisson", name = "enabled", havingValue = "true")
 public class PreventResubmitAspect extends BaseAspect {
 
     @Resource
