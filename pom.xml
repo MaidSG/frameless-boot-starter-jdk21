@@ -18,10 +18,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sprng-boot.version>3.2.4</sprng-boot.version>
         <hutool.version>6.0.0-M4</hutool.version>
-        <fastjson.version>2.0.48</fastjson.version>
-        <fastjson2.version>2.0.21</fastjson2.version>
+        <fastjson.version>2.0.50</fastjson.version>
+        <fastjson2.version>2.0.50</fastjson2.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
-        <redisson.version>3.28.0</redisson.version>
+        <redisson.version>3.20.0</redisson.version>
         <guava.version>33.1.0-jre</guava.version>
 <!--        <springdoc-openapi-ui.version>1.7.0</springdoc-openapi-ui.version>-->
 <!--        <knife4j-springdoc-ui.version>3.0.3</knife4j-springdoc-ui.version>-->
@@ -141,9 +141,15 @@
 
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2-extension</artifactId>
-            <version>${fastjson2.version}</version>
+            <artifactId>fastjson2-extension-spring6</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.fastjson2</groupId>-->
+<!--            <artifactId>fastjson2-extension</artifactId>-->
+<!--            <version>${fastjson2.version}</version>-->
+<!--        </dependency>-->
 
 <!--        &lt;!&ndash;OPEN AI 接口文档&ndash;&gt;-->
 <!--        <dependency>-->

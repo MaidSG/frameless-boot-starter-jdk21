@@ -7,9 +7,11 @@ import io.github.maidsg.starter.voyage.component.serializers.RedisFastJson2Seria
 import io.github.maidsg.starter.voyage.constant.RedisConstant;
 import io.github.maidsg.starter.voyage.manager.RedissonManager;
 import io.github.maidsg.starter.voyage.model.settings.BootStarterProperties;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -33,7 +35,9 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.lang.NonNullApi;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -175,6 +179,12 @@ public class RedisConfiguration {
         serverConfig.setPassword(redissonProperties.getPassword());
 
         return new LettuceConnectionFactory(serverConfig, clientConfig);
+    }
+
+    @Bean
+    @Qualifier("springSessionDefaultRedisSerializer")
+    public RedisSerializer<Object> setDefaultRedisSerializer() {
+        return new RedisFastJson2Serializer(Object.class);
     }
 
 

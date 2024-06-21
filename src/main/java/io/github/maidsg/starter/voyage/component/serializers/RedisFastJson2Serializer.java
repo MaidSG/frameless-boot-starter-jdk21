@@ -4,9 +4,12 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
+
+import java.nio.charset.Charset;
 
 /*******************************************************************
  * <pre></pre>
@@ -20,6 +23,15 @@ import org.springframework.data.redis.serializer.SerializationException;
  * @Modify：
  */
 public class RedisFastJson2Serializer<T> implements RedisSerializer<T> {
+
+
+    @SuppressWarnings("unused")
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+
+
+
 
     static final Filter AUTO_TYPE_FILTER = JSONReader.autoTypeFilter(
             // 按需加上需要支持自动类型的类名前缀，范围越小越安全

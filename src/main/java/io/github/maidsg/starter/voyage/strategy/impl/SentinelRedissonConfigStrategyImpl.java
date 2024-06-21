@@ -40,7 +40,7 @@ public class SentinelRedissonConfigStrategyImpl implements RedissonConfigStrateg
             for (int i = 1; i < addrTokens.length; i++) {
                 config.useSentinelServers().addSentinelAddress(RedisConstant.REDIS_CONNECTION_PREFIX + addrTokens[i]);
             }
-            config.setCodec(new RedissonFastJsonCodec());
+            config.setCodec(RedissonFastJsonCodec.INSTANCE);
             log.info("初始化哨兵方式Config,redisAddress:" + address);
         } catch (Exception e) {
             log.error("哨兵Redisson初始化错误", e);

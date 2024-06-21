@@ -26,6 +26,8 @@ import java.util.List;
 @ConfigurationProperties(prefix = "frameless.api")
 public class BootStarterProperties {
 
+    private boolean enableVersion = Boolean.FALSE;
+
     private boolean enabled = Boolean.FALSE;
 
     private String success = "success";
