@@ -1,10 +1,15 @@
 package io.github.maidsg.starter.voyage.config.web;
 
 import io.github.maidsg.starter.voyage.annotation.ApiVersion;
-import org.springframework.web.bind.annotation.RequestMapping;
+import io.github.maidsg.starter.voyage.constant.ApiVersionConstant;
+import io.github.maidsg.starter.voyage.model.base.ApiObject;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 
 /*******************************************************************
@@ -22,31 +27,24 @@ public class ApiRequestMappingHandlerMapping extends RequestMappingHandlerMappin
     private static final String VERSION_FLAG = "{version}";
 
     @Override
-    protected RequestCondition<?> getCustomMethodCondition(Method method) {
-        return createCondition(method.getClass());
+    protected RequestCondition<ApiVersionCondition> getCustomMethodCondition(Method method) {
+        return buildFrom(AnnotationUtils.findAnnotation(method, ApiVersion.class));
     }
 
     @Override
     protected RequestCondition<?> getCustomTypeCondition(Class<?> handlerType) {
-        return createCondition(handlerType);
+        return buildFrom(AnnotationUtils.findAnnotation(handlerType, ApiVersion.class));
     }
 
-    private static RequestCondition<ApiVersionCondition> createCondition(Class<?> clazz) {
-        RequestMapping classRequestMapping = clazz.getAnnotation(RequestMapping.class);
-        if (classRequestMapping == null) {
-            return null;
-        }
-        StringBuilder mappingUrlBuilder = new StringBuilder();
-        if (classRequestMapping.value().length > 0) {
-            mappingUrlBuilder.append(classRequestMapping.value()[0]);
-        }
-        String mappingUrl = mappingUrlBuilder.toString();
-        if (!mappingUrl.contains(VERSION_FLAG)) {
-            return null;
-        }
-        ApiVersion apiVersion = clazz.getAnnotation(ApiVersion.class);
-        return apiVersion == null ? new ApiVersionCondition(1) : new ApiVersionCondition(apiVersion.value());
+
+
+    private ApiVersionCondition buildFrom(ApiVersion platform) {
+        return platform == null ? getDefaultCondition() :
+                new ApiVersionCondition(ApiObject.ApiConverter.convert(platform.value()));
     }
 
+    private ApiVersionCondition getDefaultCondition(){
+        return new ApiVersionCondition(ApiObject.ApiConverter.convert(ApiVersionConstant.DEFAULT_VERSION),true);
+    }
 
 }

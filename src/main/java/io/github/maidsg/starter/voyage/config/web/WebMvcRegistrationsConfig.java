@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 @Configuration
 @Slf4j
-@ConditionalOnProperty(prefix = "frameless.api", name = "enableVersion", havingValue = "true")
+@ConditionalOnProperty(prefix = "frameless.api", name = "enable-version", havingValue = "true")
 public class WebMvcRegistrationsConfig implements WebMvcRegistrations {
 
 

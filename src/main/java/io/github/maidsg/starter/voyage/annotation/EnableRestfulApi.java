@@ -6,6 +6,7 @@ import io.github.maidsg.starter.voyage.config.BeanAutoConfiguration;
 import io.github.maidsg.starter.voyage.config.OpenApiConfig;
 import io.github.maidsg.starter.voyage.config.RedisConfiguration;
 import io.github.maidsg.starter.voyage.config.RedisPropertiesPostProcessor;
+import io.github.maidsg.starter.voyage.config.web.WebMvcRegistrationsConfig;
 import io.github.maidsg.starter.voyage.manager.RedissonManager;
 import org.springframework.context.annotation.Import;
 
@@ -28,7 +29,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({BeanAutoConfiguration.class, WebMvcHandleConfig.class, OpenApiConfig.class, RedisPropertiesPostProcessor.class})
+@Import({BeanAutoConfiguration.class, WebMvcHandleConfig.class, WebMvcRegistrationsConfig.class, OpenApiConfig.class, RedisPropertiesPostProcessor.class})
 public @interface EnableRestfulApi {
 
     /**

@@ -1,5 +1,7 @@
 package io.github.maidsg.starter.voyage.annotation;
 
+import java.lang.annotation.*;
+
 /*******************************************************************
  * <pre></pre>
  * @文件名称： ApiVersion.java
@@ -11,9 +13,12 @@ package io.github.maidsg.starter.voyage.annotation;
  * @Date： 2024/6/21 17:36
  * @Modify：
  */
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface ApiVersion {
     /**
      * @return 版本号
      */
-    int value() default 1;
+    String value() default "1.0.0";
 }

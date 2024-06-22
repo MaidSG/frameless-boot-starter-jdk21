@@ -86,7 +86,7 @@ public class RedisConfiguration {
     @Bean
     @ConditionalOnMissingBean(name = "redisTemplate")
     @DependsOn("starterRedisProperties")
-    @ConditionalOnProperty(prefix = "frameless.redis", value = "enableCache", havingValue = "true")
+    @ConditionalOnProperty(prefix = "frameless.redis", value = "enable-cache", havingValue = "true")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
@@ -110,7 +110,7 @@ public class RedisConfiguration {
      * 使用方法名+参数作为key，不会出现empty key
      */
     @Component("defaultKeyGenerate")
-    @ConditionalOnProperty(prefix = "frameless.redis", value = "enableCache", havingValue = "true")
+    @ConditionalOnProperty(prefix = "frameless.redis", value = "enable-cache", havingValue = "true")
     public static class SelfKeyGenerate implements KeyGenerator {
         @Override
         public Object generate(Object target, Method method, Object... params) {
@@ -120,7 +120,7 @@ public class RedisConfiguration {
 
 
     @Bean
-    @ConditionalOnProperty(prefix = "frameless.redis", value = "enableCache", havingValue = "true")
+    @ConditionalOnProperty(prefix = "frameless.redis", value = "enable-cache", havingValue = "true")
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisFastJson2Serializer<Object> fastJson2RedisSerializer = new RedisFastJson2Serializer<>(Object.class);
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(starterRedisProperties.getCacheExpireTime()));
@@ -147,7 +147,7 @@ public class RedisConfiguration {
      * @return
      */
     @Bean
-    @ConditionalOnProperty(prefix = "frameless.redis", value = "enableMessage", havingValue = "true")
+    @ConditionalOnProperty(prefix = "frameless.redis", value = "enable-message", havingValue = "true")
     public RedisMessageListenerContainer redisContainer(RedisConnectionFactory redisConnectionFactory, RedisMessageClient redisReceiver, MessageListenerAdapter commonListenerAdapter) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(redisConnectionFactory);
@@ -157,7 +157,7 @@ public class RedisConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "frameless.redis", value = "enableMessage", havingValue = "true")
+    @ConditionalOnProperty(prefix = "frameless.redis", value = "enable-message", havingValue = "true")
     MessageListenerAdapter commonListenerAdapter(RedisMessageClient redisReceiver) {
         MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(redisReceiver, "onMessage");
         messageListenerAdapter.setSerializer(new RedisFastJson2Serializer<>(Object.class));

@@ -79,7 +79,7 @@ public class BeanAutoConfiguration {
     // ==================== redisson & cache manager & redis ====================
 
     @Bean
-    @ConditionalOnProperty(prefix = "frameless.redis", value = "enableCache", havingValue = "true")
+    @ConditionalOnProperty(prefix = "frameless.redis", value = "enable-cache", havingValue = "true")
     public RedisConfiguration.SelfKeyGenerate selfKeyGenerate(){return new RedisConfiguration.SelfKeyGenerate();}
 
     @Bean
@@ -92,7 +92,7 @@ public class BeanAutoConfiguration {
     public PreventResubmitAspect preventResubmitAspect(){return new PreventResubmitAspect();}
 
     @Bean
-    @ConditionalOnProperty(prefix = "frameless.redis", value = "enableMessage", havingValue = "true")
+    @ConditionalOnProperty(prefix = "frameless.redis", value = "enable-message", havingValue = "true")
     public RedisMessageClient redisMessageClient(){return new RedisMessageClient();}
 
     // ==================== some aop function ====================
