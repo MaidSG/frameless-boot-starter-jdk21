@@ -27,12 +27,7 @@
 <!--        <knife4j-springdoc-ui.version>3.0.3</knife4j-springdoc-ui.version>-->
     </properties>
 
-    <licenses>
-        <license>
-            <name>GNU General Public License version 3</name>
-            <url>https://opensource.org/licenses/GPL-3.0</url>
-        </license>
-    </licenses>
+
 
     <developers>
         <developer>
@@ -144,27 +139,6 @@
             <artifactId>fastjson2-extension-spring6</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.fastjson2</groupId>-->
-<!--            <artifactId>fastjson2-extension</artifactId>-->
-<!--            <version>${fastjson2.version}</version>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash;OPEN AI 接口文档&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
-<!--            <version>${springdoc-openapi-ui.version}</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>com.github.xiaoymin</groupId>-->
-<!--            <artifactId>knife4j-springdoc-ui</artifactId>-->
-<!--            <version>${knife4j-springdoc-ui.version}</version>-->
-<!--        </dependency>-->
-
-
 
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
