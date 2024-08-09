@@ -26,6 +26,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -86,7 +87,8 @@ public class GlobalExceptionAdvice {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Res<Object> httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        return Res.failWith(ResponseEnum.METHOD_NOT_ALLOWED, ExceptionUtil.stacktraceToString(e));
+        return Res.failWith(ResponseEnum.METHOD_NOT_ALLOWED,
+                String.format("当前请求的url不支持%s请求方法，请使用%s", e.getMethod(), Arrays.stream(e.getSupportedMethods()).toList()));
     }
 
     /**
