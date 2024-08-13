@@ -58,6 +58,7 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public Res error(Exception e) {
         log.error("系统异常: {}", ExceptionUtil.stacktraceToString(e));
+
         return Res.failWith(ResponseEnum.INTERNAL_SERVER_ERROR);
     }
 
