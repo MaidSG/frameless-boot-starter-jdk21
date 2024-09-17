@@ -32,13 +32,16 @@ public class Res<T> extends AbstractSerialObject {
 
     private Boolean success;
 
-    private String code;
+    /**
+     * 可自定义code数据类型
+     */
+    private Object code;
 
     private String msg;
 
     private String requestId = IdUtil.nanoId(20);
 
-    private String timestamp = DateUtil.formatNow();
+    private Object timestamp = DateUtil.formatNow();
 
     private T data;
 

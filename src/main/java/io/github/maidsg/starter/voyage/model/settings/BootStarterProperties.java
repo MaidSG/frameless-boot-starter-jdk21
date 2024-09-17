@@ -34,11 +34,26 @@ public class BootStarterProperties {
 
     private String code = "code";
 
+    /**
+     * code的类型，string或者int,当返回类型为int时，codeSuccessValue必须为int
+     */
+    private String codeMode = "string";
+
     private String codeSuccessValue = "OK";
 
     private String msg = "msg";
 
+    /**
+     *  请求时间戳，默认返回的格式为yyyy-MM-dd HH:mm:ss，如果想更改格式，传入timestampFormat
+     */
     private String timestamp = "timestamp";
+
+    /**
+     * 时间戳格式 默认为yyyy-MM-dd HH:mm:ss
+     * 除此之外，还支持时间戳格式，传入timestamp 启用
+     *
+     */
+    private String timestampFormat = "yyyy-MM-dd HH:mm:ss";
 
     private String data = "data";
 

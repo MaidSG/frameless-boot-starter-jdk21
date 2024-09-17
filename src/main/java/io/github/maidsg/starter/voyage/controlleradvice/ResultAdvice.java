@@ -1,10 +1,12 @@
 package io.github.maidsg.starter.voyage.controlleradvice;
 
 import io.github.maidsg.starter.voyage.annotation.DisableRestfulApi;
+import io.github.maidsg.starter.voyage.constant.StarterConstant;
 import io.github.maidsg.starter.voyage.model.base.Res;
 import io.github.maidsg.starter.voyage.model.settings.BootStarterProperties;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.date.DatePattern;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.core.MethodParameter;
@@ -33,7 +35,7 @@ import java.util.Map;
 // 只对标注了FramelessController注解的类进行处理
 @RestControllerAdvice(annotations = io.github.maidsg.starter.voyage.annotation.FramelessController.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-public class ResultAdvice  implements ResponseBodyAdvice<Object> {
+public class ResultAdvice implements ResponseBodyAdvice<Object> {
 
     @Resource
     private BootStarterProperties apiProperties;
@@ -55,12 +57,13 @@ public class ResultAdvice  implements ResponseBodyAdvice<Object> {
 
     /**
      * 实际返回结果
-     * @param body the body to be written
-     * @param returnType the return type of the controller method
-     * @param selectedContentType the content type selected through content negotiation
+     *
+     * @param body                  the body to be written
+     * @param returnType            the return type of the controller method
+     * @param selectedContentType   the content type selected through content negotiation
      * @param selectedConverterType the converter type selected to write to the response
-     * @param request the current request
-     * @param response the current response
+     * @param request               the current request
+     * @param response              the current response
      * @return
      */
     @Override
@@ -107,18 +110,20 @@ public class ResultAdvice  implements ResponseBodyAdvice<Object> {
         Boolean flag = !returnType.hasMethodAnnotation(DisableRestfulApi.class);
         if (!flag) return flag;
 
-       return Boolean.TRUE && apiProperties.isEnabled();
+        return Boolean.TRUE && apiProperties.isEnabled();
     }
 
 
     /**
-     *
      * @return
      */
-    private Object userDefinedResultKey(Res res){
+    private Object userDefinedResultKey(Res res) {
         Map resultMap = new LinkedHashMap();
-        if (null != apiProperties && null != res && apiProperties.isEnabled()){
+        if (null != apiProperties && null != res && apiProperties.isEnabled()) {
+
+
             String keyCode = apiProperties.getCode();
+
             String keyMsg = apiProperties.getMsg();
             String keySuccess = apiProperties.getSuccess();
             String keyData = apiProperties.getData();
@@ -128,9 +133,19 @@ public class ResultAdvice  implements ResponseBodyAdvice<Object> {
                 resultMap.put(keySuccess, res.getSuccess());
             }
             if (StrUtil.isNotEmpty(keyCode)) {
-                if (StrUtil.isNotEmpty(codeSuccessValue) && res.getCode().equals("OK")) {
-                    resultMap.put(keyCode, apiProperties.getCodeSuccessValue());
+                if (StrUtil.isNotEmpty(codeSuccessValue) && res.getSuccess()) {
+
+                    if (StarterConstant.RES_CODE_TYPE_STRING.equals(apiProperties.getCodeMode())) {
+                        resultMap.put(keyCode, codeSuccessValue);
+                    } else if (StarterConstant.RES_CODE_TYPE_INT.equals(apiProperties.getCodeMode())) {
+                        resultMap.put(keyCode, Integer.parseInt(codeSuccessValue));
+                    } else {
+                        resultMap.put(keyCode, apiProperties.getCodeSuccessValue());
+                    }
+
+
                 } else {
+
                     resultMap.put(keyCode, res.getCode());
                 }
             }
@@ -138,7 +153,31 @@ public class ResultAdvice  implements ResponseBodyAdvice<Object> {
                 resultMap.put(keyMsg, res.getMsg());
             }
             resultMap.put("requestId", res.getRequestId());
-            resultMap.put("timestamp", res.getTimestamp());
+
+            if (StrUtil.isNotEmpty(apiProperties.getTimestamp())) {
+
+                if (StrUtil.isNotEmpty(apiProperties.getTimestampFormat())
+                        && (
+                        DatePattern.NORM_DATETIME_PATTERN.equals(apiProperties.getTimestampFormat())
+                                || StarterConstant.TIMESTAMPS_FORMAT.equals(apiProperties.getTimestampFormat())
+                )
+                ) {
+
+                    if (StarterConstant.TIMESTAMPS_FORMAT.equals(apiProperties.getTimestampFormat())) {
+                        resultMap.put(apiProperties.getTimestamp(), System.currentTimeMillis());
+                    } else {
+                        resultMap.put(apiProperties.getTimestamp(), res.getTimestamp());
+                    }
+
+                } else {
+                    resultMap.put(apiProperties.getTimestamp(), res.getTimestamp());
+                }
+
+            } else {
+                resultMap.put("timestamp", res.getTimestamp());
+            }
+
+
             if (StrUtil.isNotEmpty(keyData)) {
                 resultMap.put(keyData, res.getData());
             }
@@ -150,8 +189,6 @@ public class ResultAdvice  implements ResponseBodyAdvice<Object> {
         return res;
 
     }
-
-
 
 
 }

@@ -16,5 +16,11 @@ public class StarterConstant {
     // file source path
     public static final String FILE_SOURCE_PATH = "io.github.maidsg.starter.voyage.dao.LogFileDataSource";
 
+    public static final String RES_CODE_TYPE_STRING = "string";
+
+    public static final String RES_CODE_TYPE_INT = "int";
+
+    public static final String TIMESTAMPS_FORMAT = "timestamp";
+
 
 }
