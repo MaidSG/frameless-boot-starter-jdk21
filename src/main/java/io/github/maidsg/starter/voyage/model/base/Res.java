@@ -54,6 +54,15 @@ public class Res<T> extends AbstractSerialObject {
         this.data = data;
     }
 
+    public Res(Boolean success, Object code, String msg, T data) {
+//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest request = attributes.getRequest();
+        this.success = success;
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
     /**
      * 构建返回结果
      *
